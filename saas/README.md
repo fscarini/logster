@@ -41,7 +41,9 @@ Cada diretório tem um `vercel.json` que fixa o framework Next.js. Variáveis de
 - `logster-app`: `LOGSTER_DEMO_MODE=0`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `LOGSTER_CRON_SECRET` e `NEXT_PUBLIC_LOGSTER_LANDING_URL=https://logster-pi.vercel.app`.
 - `logster`: `NEXT_PUBLIC_LOGSTER_APP_URL=https://logster-app.vercel.app`.
 
-As variáveis `NEXT_PUBLIC_` são gravadas no build: ao mudar um domínio, atualize a variável e faça um novo deploy do projeto que a usa. Deploy manual pela CLI: `vercel deploy --prod` na raiz (landing) ou em `saas/` (SaaS). Para deploys automáticos pelo GitHub, conecte o repositório em cada projeto e, no `logster-app`, defina **Root Directory** como `saas`.
+As variáveis `NEXT_PUBLIC_` são gravadas no build: ao mudar um domínio, atualize a variável e faça um novo deploy do projeto que a usa. Os dois projetos estão conectados ao repositório no GitHub: cada push na `main` publica os dois em produção, e outros branches geram deploys de preview. O `logster-app` usa **Root Directory** `saas`. Deploy manual, se necessário: `vercel deploy --prod` na raiz (landing) ou em `saas/` (SaaS).
+
+A previsão é atualizada de hora em hora pelo job `logster-forecast-hourly` (pg_cron) no Supabase, que chama `https://logster-app.vercel.app/api/cron/forecast` com o segredo guardado no Vault.
 
 ## Documentação
 
