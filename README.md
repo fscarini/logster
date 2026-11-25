@@ -13,3 +13,7 @@ Em `.env.local`, adicione `NEXT_PUBLIC_LOGSTER_LOGIN_URL` quando o endereço da 
 ## Referências visuais
 
 As animações de entrada, elevação, brilho e pulso foram adaptadas da [coleção de animações CSS do Não Codei](https://naocodei.com/free-code-css/). O fundo cartográfico do painel usa contornos estaduais do [Click That 'Hood](https://github.com/codeforamerica/click_that_hood/blob/master/public/data/brazil-states.geojson), com trajetos ilustrativos. As licenças das fontes estão em `public/licenses/`.
+
+## Protótipo SaaS
+
+O painel de operações e a API ficam em [`saas/`](saas/README.md) e têm um modo de demonstração local.

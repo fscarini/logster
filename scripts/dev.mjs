@@ -1,7 +1,8 @@
 import { spawn } from "node:child_process";
 import { createRequire } from "node:module";
+import { resolve } from "node:path";
 
-const require = createRequire(import.meta.url);
+const require = createRequire(resolve("package.json"));
 // The managed preview passes Vite-style flags. Next uses --hostname.
 const args = process.argv.slice(2)
   .filter(argument => argument !== "--strictPort")
