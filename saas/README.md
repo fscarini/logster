@@ -27,6 +27,22 @@ Na aba **Rotas**, cadastre uma rota escolhendo origem e destino no catálogo de 
 
 Em produção, o modo padrão exige Supabase. Execute `npm run build` e `npm start` no diretório `saas/` em uma hospedagem compatível com Next.js e Node.js. Cada conta tem sua própria operação. As três rotas iniciais ficam disponíveis para todos os usuários autenticados.
 
+## Deploy (Vercel)
+
+São dois projetos na Vercel, no time *Fernando Carini's projects*:
+
+| Projeto | Diretório raiz | Produção |
+|---|---|---|
+| `logster` (landing) | `.` | https://logster-pi.vercel.app |
+| `logster-app` (SaaS) | `saas` | https://logster-app.vercel.app |
+
+Cada diretório tem um `vercel.json` que fixa o framework Next.js. Variáveis de produção:
+
+- `logster-app`: `LOGSTER_DEMO_MODE=0`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `LOGSTER_CRON_SECRET` e `NEXT_PUBLIC_LOGSTER_LANDING_URL=https://logster-pi.vercel.app`.
+- `logster`: `NEXT_PUBLIC_LOGSTER_APP_URL=https://logster-app.vercel.app`.
+
+As variáveis `NEXT_PUBLIC_` são gravadas no build: ao mudar um domínio, atualize a variável e faça um novo deploy do projeto que a usa. Deploy manual pela CLI: `vercel deploy --prod` na raiz (landing) ou em `saas/` (SaaS). Para deploys automáticos pelo GitHub, conecte o repositório em cada projeto e, no `logster-app`, defina **Root Directory** como `saas`.
+
 ## Documentação
 
 - [README funcional](docs/README-funcional.md): o que o produto faz, telas, fluxos, regras de negócio e indicadores.
