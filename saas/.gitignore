@@ -4,3 +4,5 @@
 *.tsbuildinfo
 !.env.example
 /AGENTS.md
+/.cache/
+/supabase/.temp/

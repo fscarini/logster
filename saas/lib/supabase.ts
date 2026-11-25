@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import type { Decision, Delivery, Forecast, FreightRoute } from "./model";
 import type { Store } from "./store";
@@ -29,12 +30,14 @@ export async function authenticatedStore(): Promise<Store | null> {
   const { data, error } = await db.auth.getUser();
   if (error || !data.user) return null;
   const user = data.user.id;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 
   return {
     mode: "supabase",
     async load() {
       const [routes, deliveries, decisions, forecasts] = await Promise.all([
-        db.from("routes").select("id, code, origin, destination, checkpoint, latitude, longitude, checkpoint_minutes").order("code"),
+        db.from("routes").select("id, code, origin, destination, checkpoint, latitude, longitude, checkpoint_minutes, origin_code, destination_code, checkpoint_snv").order("code"),
         db.from("deliveries").select("id, route_id, reference, departure_at, hour_cost_cents").order("departure_at"),
         db.from("decisions").select("delivery_id, choice, note, recorded_at, assessment"),
         db.from("forecasts").select("route_id, fetched_at, hours"),
@@ -60,5 +63,11 @@ export async function authenticatedStore(): Promise<Store | null> {
       const result = await db.from("decisions").upsert({ ...decision, owner_id: user }, { onConflict: "delivery_id", ignoreDuplicates: true });
       if (result.error) throw result.error;
     },
+    // A tabela forecasts só aceita escrita do service_role; a chave nunca sai do servidor.
+    saveForecasts: serviceKey ? async forecasts => {
+      const admin = createClient(url, serviceKey, { auth: { persistSession: false, autoRefreshToken: false } });
+      const result = await admin.from("forecasts").upsert(forecasts, { onConflict: "route_id" });
+      if (result.error) throw result.error;
+    } : undefined,
   };
 }

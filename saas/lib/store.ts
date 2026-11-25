@@ -6,4 +6,6 @@ export type Store = {
   addRoute: (route: FreightRoute) => Promise<void>;
   addDelivery: (delivery: Delivery) => Promise<void>;
   recordDecision: (decision: Decision) => Promise<void>;
+  /** Grava previsões atualizadas sob demanda. Ausente quando não há chave de serviço configurada. */
+  saveForecasts?: (forecasts: Forecast[]) => Promise<void>;
 };

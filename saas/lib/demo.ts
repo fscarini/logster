@@ -65,7 +65,8 @@ export async function demoStore(): Promise<Store> {
   return {
     mode: "demo",
     async load() {
-      const routes = [...initialRoutes, ...list<FreightRoute>("route")];
+      // Rotas criadas antes do catálogo rodoviário não têm os campos de município.
+      const routes = [...initialRoutes, ...list<Partial<FreightRoute>>("route").map(route => ({ origin_code: null, destination_code: null, checkpoint_snv: null, ...route }) as FreightRoute)];
       return {
         routes,
         deliveries: list<Delivery>("delivery"),

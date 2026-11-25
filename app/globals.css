@@ -47,6 +47,19 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 .login-content h2{font-size:1.55rem;font-weight:800;margin-top:1rem}
 .login-content p{margin:.75rem 0 1.25rem;color:var(--muted)}
 .close-dialog{position:absolute;top:1rem;right:1rem;padding:.35rem;color:var(--muted)}
+.login-form{display:grid;gap:.85rem}
+.login-form label{display:grid;gap:.3rem;font-size:.88rem;font-weight:700}
+.login-form input{width:100%;min-height:2.9rem;padding:.6rem .7rem;color:var(--ivory);background:var(--deep);border:1px solid var(--brown);border-radius:.5rem;font-size:1rem}
+.login-form input:focus-visible{outline-offset:2px}
+.login-form .button{width:100%;margin-top:.25rem}
+.login-form .button[aria-disabled="true"]{pointer-events:none;opacity:.75}
+.login-message{margin:-.35rem 0 1rem!important;padding:.6rem .75rem;border:1px solid var(--brown);border-radius:.5rem;background:var(--raised);font-size:.9rem}
+.login-message.error{color:var(--lightamber)!important;border-color:var(--amber)}
+.login-message.info{color:var(--ivory)!important}
+.login-demo{display:block;margin-top:1rem;text-align:center;color:var(--muted);font-size:.88rem;text-decoration:underline;text-underline-offset:3px}
+.login-demo:hover{color:var(--lightamber)}
+.spin{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 .hero{position:relative;isolation:isolate;overflow:hidden;border-bottom:1px solid var(--line);background:var(--deep)}
 .hero-terrain{position:absolute;z-index:-1;inset:0;background:
