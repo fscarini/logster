@@ -27,6 +27,11 @@ Na aba **Rotas**, cadastre uma rota escolhendo origem e destino no catálogo de 
 
 Em produção, o modo padrão exige Supabase. Execute `npm run build` e `npm start` no diretório `saas/` em uma hospedagem compatível com Next.js e Node.js. Cada conta tem sua própria operação. As três rotas iniciais ficam disponíveis para todos os usuários autenticados.
 
+## Documentação
+
+- [README funcional](docs/README-funcional.md): o que o produto faz, telas, fluxos, regras de negócio e indicadores.
+- [README técnico](docs/README-tecnico.md): arquitetura, configuração, autenticação, referência das APIs e modelo de dados.
+
 ## Login pela landing page
 
 A landing page (raiz do repositório) é a porta de entrada. Para rodar as duas localmente, em terminais separados:
