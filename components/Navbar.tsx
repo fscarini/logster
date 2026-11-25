@@ -8,6 +8,7 @@ const links = [
   { href: "#plataforma", name: "Plataforma" },
   { href: "#recursos", name: "Recursos" },
   { href: "#como-funciona", name: "Como funciona" },
+  { href: "#indicadores", name: "Indicadores" },
 ];
 
 export function Navbar() {
